@@ -1,6 +1,6 @@
 # GateRGCN
 # server
-# Allsides dataset
+# Semeval dataset
 from typing_extensions import runtime
 from numpy import where
 from torch.utils.data import DataLoader
@@ -28,30 +28,33 @@ ENT_DIM = 768
 TOP_DIM = 768
 
 OUT_TYPE = 0
-PATH = '../../sem/Train/'
-runtimes = 5
+PATH = '../../Sem/Train/'
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--type", type=int, default=0)
 parser.add_argument("--lid", type=int, default=0)
-
+parser.add_argument("--rumtimes", type=int, default=5)
 args = parser.parse_args()
+
+
+#####################################################################################################################
+OUTTYPE = args.type  # 0: PA; 1: CA; 2: GA;
+runtimes = args.rumtimes
 
 for run in range(0, runtimes):
     #####################################################################################################################
-    OUT_TYPE = args.type
     #
-    valname = 'OutType' + str(OUT_TYPE) + "_log_id_" + str(args.lid)
+    valname = 'main' + str(OUTTYPE) + '_log_id_' + str(args.lid)
     logpath = 'log/' + valname + '/'
     txtpath = 'txt/' + valname
     #####################################################################################################################
 
-    resulttxt = open(txtpath + '.txt', 'a')
-    resulttxt.write('***********' + valname + '***********\n')
-    resulttxt.write('Out Type='+str(OUT_TYPE) + '\n')
+    with open(txtpath + '.txt', 'a') as resulttxt:
+        resulttxt.write('***********' + valname + '***********\n')
+        resulttxt.write('Out Type='+str(OUT_TYPE) +': '+str(run)+ '\n')
 
-    resulttxt.write('\nTraining Begin\n')
-    resulttxt.close()
+        resulttxt.write('\nTraining Begin\n')
     accuracy = 0
     f1 = 0
     for FOLDID in range(0, 10):
@@ -70,7 +73,9 @@ for run in range(0, runtimes):
         early_stop_callback = EarlyStopping(
             monitor="val_ACC", min_delta=0.00, patience=EARLYSTOP, verbose=False, mode="max")
         comet_logger = pl_loggers.TensorBoardLogger(
-            save_dir=logpath)
+            save_dir=logpath,
+            version=args.lid,
+            name='lightning_logs_fold_' + str(FOLDID) +'_run_'+ str(run))
         if EARLYSTOP > 0:
             trainer = pl.Trainer(gpus=1, num_nodes=1, precision=16, max_epochs=EPOCH, callbacks=[
                                  early_stop_callback], logger=comet_logger)
@@ -83,12 +88,10 @@ for run in range(0, runtimes):
         f1 = f1 + model.globalF1
         now = datetime.now()
         current_time = now.strftime("%H:%M:%S")
-        resulttxt = open(txtpath + '.txt', 'a')
-        resulttxt.write('Time:' + current_time + '\nFoldId= '+str(FOLDID)+' ')
-        resulttxt.write('ACC='+format(model.globalACC, '.4f')+' ')
-        resulttxt.write('F1= '+format(model.globalF1, '.4f')+'\n')
-        resulttxt.close()
-    resulttxt = open(txtpath + '.txt', 'a')
-    resulttxt.write('ACC='+format(accuracy/10, '.4f')+' ')
-    resulttxt.write('F1= '+format(f1/10, '.4f')+'\n')
-    resulttxt.close()
+        with open(txtpath + '.txt', 'a') as resulttxt:
+            resulttxt.write('Time:' + current_time + '\nFoldId= '+str(FOLDID)+' ')
+            resulttxt.write('ACC='+format(model.globalACC, '.4f')+' ')
+            resulttxt.write('F1= '+format(model.globalF1, '.4f')+'\n')
+    with open(txtpath + '.txt', 'a') as resulttxt:
+        resulttxt.write('ACC='+format(accuracy/10, '.4f')+' ')
+        resulttxt.write('F1= '+format(f1/10, '.4f')+'\n')
