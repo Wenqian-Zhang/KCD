@@ -20,7 +20,7 @@ DROPOUT = 0.6
 WEIGHT_DECAY = 1e-4
 NUM_HEADS = 32  # KGP HEAD ##########
 LEARNING_RATE = 1e-3
-PATH = '../../all/'
+PATH = '../../All/'
 EARLYSTOP = 40
 LR_SCHEDUALER = 20
 
@@ -33,7 +33,7 @@ args = parser.parse_args()
 
 
 #####################################################################################################################
-OUTTYPE = args.type# 0: PA; 1: CA; 2: GA;
+OUTTYPE = args.type  # 0: PA; 1: CA; 2: GA;
 runtimes = 5
 #####################################################################################################################
 
@@ -43,22 +43,21 @@ for run in range(0, runtimes):
     txtpath = 'txt/' + valname
     #####################################################################################################################
 
-    resulttxt = open(txtpath + '.txt', 'a')
-    resulttxt.write('***********' + valname + '***********\n')
-    resulttxt.write('Out Type = '+str(OUTTYPE) + '\n')
+    with open(txtpath + '.txt', 'a') as resulttxt:
+        resulttxt.write('***********' + valname + '***********\n')
+        resulttxt.write('Out Type = '+str(OUTTYPE) + '\n')
 
-    resulttxt.write('\nTraining Begin\n')
-    resulttxt.close()
+        resulttxt.write('\nTraining Begin\n')
     accuracy = []
     f1 = []
     for FOLDID in range(1, 4):
         print(FOLDID)
-        model = KSD(in_channels=in_channels,out_channels = OUT_CHANNELS, dropout = DROPOUT,
-            num_heads = NUM_HEADS,Weight_decay= WEIGHT_DECAY,lr = LEARNING_RATE, lr_s=LR_SCHEDUALER, outtype = OUTTYPE)
+        model = KSD(in_channels=in_channels, out_channels=OUT_CHANNELS, dropout=DROPOUT,
+                    num_heads=NUM_HEADS, Weight_decay=WEIGHT_DECAY, lr=LEARNING_RATE, lr_s=LR_SCHEDUALER, outtype=OUTTYPE)
         train_dataset = KSDDataset(
             name='train', foldid=FOLDID, path=PATH)
         dev_dataset = KSDDataset(name='dev', foldid=FOLDID,
-                                path=PATH)
+                                 path=PATH)
 
         train_loader = DataLoader(
             train_dataset, batch_size=BATCH_SIZE, collate_fn=pad_collate)
@@ -68,35 +67,39 @@ for run in range(0, runtimes):
         early_stop_callback = EarlyStopping(
             monitor="val_ACC", min_delta=0.00, patience=EARLYSTOP, verbose=False, mode="max")
         comet_logger = pl_loggers.TensorBoardLogger(
-            save_dir=logpath)
+            save_dir=logpath,
+            version=args.lid,
+            name='lightning_logs_fold_' + str(FOLDID) +'_run_'+ str(run))
 
         if EARLYSTOP > 0:
-            trainer = pl.Trainer(gpus=1, num_nodes=1, precision=16, max_epochs=EPOCH, callbacks=[early_stop_callback], logger=comet_logger)
+            trainer = pl.Trainer(gpus=1, num_nodes=1, precision=16, max_epochs=EPOCH, callbacks=[
+                                 early_stop_callback], logger=comet_logger)
         elif EARLYSTOP == 0:
             trainer = pl.Trainer(gpus=1, num_nodes=1, precision=16,
-                                max_epochs=EPOCH, logger=comet_logger)
+                                 max_epochs=EPOCH, logger=comet_logger)
         ########################################
         trainer.fit(model, train_loader, dev_loader)
         accuracy.append(format(model.globalACC, '.4f'))
         f1.append(format(model.globalF1, '.4f'))
-        resulttxt = open(txtpath + '.txt', 'a')
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        resulttxt.write('Time:' + current_time + ' FoldId= '+str(FOLDID)+' ')
-        resulttxt.write('ACC= '+str(model.globalACC)+' ')
-        resulttxt.write('F1= '+str(model.globalF1)+'\n')
-        resulttxt.close()
+        with open(txtpath + '.txt', 'a') as resulttxt:
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            resulttxt.write('Time:' + current_time + ' FoldId= '+str(FOLDID)+' ')
+            resulttxt.write('ACC= '+str(model.globalACC)+' ')
+            resulttxt.write('F1= '+str(model.globalF1)+'\n')
 
     sumacc = 0
     sumf1 = 0
-    for i in range(0,3):
+    for i in range(0, 3):
         sumacc += float(accuracy[i])
         sumf1 += float(f1[i])
     sumacc = format(sumacc/3, '.4f')
-    sumf1 = format(sumf1/3,'.4f')
+    sumf1 = format(sumf1/3, '.4f')
 
-    resulttxt = open(txtpath + '.txt', 'a')
-    resulttxt.write('{:<8s}{:^7s}{:^7s}{:^7s}{:^7s}'.format('Fold', str(1), str(2), str(3), 'sum'))
-    resulttxt.write('\n{:<8s} {} {} {}\n'.format('ACC', accuracy[0], accuracy[1], accuracy[2]))
-    resulttxt.write('\n{:<8s} {} {} {}\n{} {} {}'.format('F1', f1[0], f1[1], f1[2],'Sumacc, Sumf1 = ' ,sumacc, sumf1))
-    resulttxt.close()
+    with open(txtpath + '.txt', 'a') as resulttxt:
+        resulttxt.write('{:<8s}{:^7s}{:^7s}{:^7s}{:^7s}'.format(
+            'Fold', str(1), str(2), str(3), 'sum'))
+        resulttxt.write('\n{:<8s} {} {} {}\n'.format(
+            'ACC', accuracy[0], accuracy[1], accuracy[2]))
+        resulttxt.write('\n{:<8s} {} {} {}\n{} {} {}\n'.format(
+            'F1', f1[0], f1[1], f1[2], 'Sumacc, Sumf1 = ', sumacc, sumf1))
