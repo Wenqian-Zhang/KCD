@@ -7,6 +7,7 @@ Code for the NAACL 2022 paper "KCD: Knowledge Walks and Textual Cues Enhanced Po
 
 
 # File structure:
+```
 ├── main               # code for KCD
       ├── allmain      # code for KCD in Allsides dataset
             ├── KSD_Dataset.py
@@ -20,6 +21,7 @@ Code for the NAACL 2022 paper "KCD: Knowledge Walks and Textual Cues Enhanced Po
             └── Run_Model.py      # train model
 ├── sem      # data for Semeval dataset
 └── all      # data for Allsides dataset, you need to download from google drive
+```
 
 # Dependencies
 Our code runs on the Titan X GPU with 12GB memory, with the following packages installed:
