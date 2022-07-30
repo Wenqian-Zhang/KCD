@@ -1,4 +1,5 @@
 ## KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
+
 ```
 KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
 Wenqian Zhang*, Shangbin Feng*, Zilong Chen*, Zhenyu Lei, Jundong Li, Minnan Luo
