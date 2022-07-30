@@ -1,4 +1,4 @@
-## KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
+## Official Repository of KCD
 
 ```
 KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
