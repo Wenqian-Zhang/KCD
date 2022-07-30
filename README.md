@@ -3,7 +3,7 @@
 ```
 KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
 Wenqian Zhang*, Shangbin Feng*, Zilong Chen*, Zhenyu Lei, Jundong Li, Minnan Luo
-In *Proceedings of NAACL 2022*
+In Proceedings of NAACL 2022, oral presentation
 ```
 Links:    [[<ins>Paper link</ins>](https://aclanthology.org/2022.naacl-main.304.pdf)]    [[<ins>Oral Presentation Slides</ins>](https://aclanthology.org/2022.naacl-main.304.pdf)]    [[<ins>Wenqian Zhang homepage</ins>](https://wenqian-zhang.github.io/)]
 
