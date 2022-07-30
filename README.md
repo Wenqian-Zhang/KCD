@@ -5,7 +5,7 @@ KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection i
 Wenqian Zhang*, Shangbin Feng*, Zilong Chen*, Zhenyu Lei, Jundong Li, Minnan Luo
 In *Proceedings of NAACL 2022*
 ```
-[[Paper link](https://aclanthology.org/2022.naacl-main.304.pdf)]
+[[<ins>Paper link</ins>](https://aclanthology.org/2022.naacl-main.304.pdf)] [[<ins>Oral Presentation Slides</ins>](https://aclanthology.org/2022.naacl-main.304.pdf)] [[<ins>Wenqian Zhang homepage</ins>](https://wenqian-zhang.github.io/)]
 
 ## Details
 1. main folder consists of codes for KCD model, semmain folder indeciates codes for Semeval dataset and allmain folder indeciates codes for Allsides dataset seperately.
