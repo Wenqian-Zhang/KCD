@@ -1,5 +1,10 @@
-# KCD
-Repository for the NAACL 2022 paper ["KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media"](https://aclanthology.org/2022.naacl-main.304.pdf)
+# KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
+```
+KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
+Wenqian Zhang*, Shangbin Feng*, Zilong Chen*, Zhenyu Lei, Jundong Li, Minnan Luo
+In _Proceedings of NAACL 2022_
+```
+
 1. main folder consists of codes for KCD model, semmain folder indeciates codes for Semeval dataset and allmain folder indeciates codes for Allsides dataset seperately.
 2. sem/Train folder is Semeval training data.
 3. if you need training data for allside dataset, you can click [here](https://drive.google.com/drive/folders/1onVpTG09xYVErbidpVpaxNbEEGTduKoN?usp=sharing)
