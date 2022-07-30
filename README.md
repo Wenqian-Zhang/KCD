@@ -1,10 +1,9 @@
 # KCD
-Code for the NAACL 2022 paper "KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media"
+Repository for the NAACL 2022 paper ["KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media"](https://aclanthology.org/2022.naacl-main.304.pdf)
 1. main folder consists of codes for KCD model, semmain folder indeciates codes for Semeval dataset and allmain folder indeciates codes for Allsides dataset seperately.
 2. sem/Train folder is Semeval training data.
 3. if you need training data for allside dataset, you can click [here](https://drive.google.com/drive/folders/1onVpTG09xYVErbidpVpaxNbEEGTduKoN?usp=sharing)
 4. if you need Trained Model, you can click [here](https://drive.google.com/drive/folders/1MLtZo4KGFPqCGMmuAa8mzhr58UT_YbF6?usp=sharing)
-
 
 # File structure:
 ```
@@ -41,3 +40,17 @@ train the model by running
 ```
 python Run_Model.py
 ```
+
+# Citation
+If this paper inspires you, please cite us!
+```
+@inproceedings{Zhang2022KCDKW,
+  title={KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media},
+  author={Wenqian Zhang and Shangbin Feng and Zilong Chen and Zhenyu Lei and Jundong Li and Minnan Luo},
+  booktitle={NAACL},
+  year={2022}
+}
+```
+
+# Questions?
+Feel free to open issues in this repository. You can also contact us at `2194510944@stu.xjtu.edu.cn`.
