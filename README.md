@@ -1,16 +1,17 @@
-# KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
+## KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
 ```
 KCD: Knowledge Walks and Textual Cues Enhanced Political Perspective Detection in News Media
 Wenqian Zhang*, Shangbin Feng*, Zilong Chen*, Zhenyu Lei, Jundong Li, Minnan Luo
-In _Proceedings of NAACL 2022_
+In *Proceedings of NAACL 2022*
 ```
 
+## Details
 1. main folder consists of codes for KCD model, semmain folder indeciates codes for Semeval dataset and allmain folder indeciates codes for Allsides dataset seperately.
 2. sem/Train folder is Semeval training data.
 3. if you need training data for allside dataset, you can click [here](https://drive.google.com/drive/folders/1onVpTG09xYVErbidpVpaxNbEEGTduKoN?usp=sharing)
 4. if you need Trained Model, you can click [here](https://drive.google.com/drive/folders/1MLtZo4KGFPqCGMmuAa8mzhr58UT_YbF6?usp=sharing)
 
-# File structure:
+## File structure:
 ```
 ├── main               # code for KCD
       ├── allmain      # code for KCD in Allsides dataset
@@ -27,7 +28,7 @@ In _Proceedings of NAACL 2022_
 └── all      # data for Allsides dataset, you need to download from google drive
 ```
 
-# Dependencies
+## Dependencies
 Our code runs on the Titan X GPU with 12GB memory, with the following packages installed:
 ```
 Python 3.8.5
@@ -40,13 +41,13 @@ sklearn
 pickle
 ```
 
-# How to reproduce
+## How to reproduce
 train the model by running
 ```
 python Run_Model.py
 ```
 
-# Citation
+## Citation
 If this paper inspires you, please cite us!
 ```
 @inproceedings{Zhang2022KCDKW,
@@ -57,5 +58,5 @@ If this paper inspires you, please cite us!
 }
 ```
 
-# Questions?
+## Questions?
 Feel free to open issues in this repository. You can also contact us at `2194510944@stu.xjtu.edu.cn`.
